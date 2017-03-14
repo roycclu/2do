@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, ListView } from 'react-native'
+import Moment from 'moment'
+
 import styles from './styles.js'
 
 const propTypes = {
@@ -77,7 +79,7 @@ class ToDoListView extends Component {
         <Text>Index: {entry && entry.index}</Text>
         <Text>Owner: {entry && entry.owner}</Text>
         <Text>ToDo: {entry && entry.text}</Text>
-        <Text>Due: {entry && entry.due}</Text>
+        <Text>Due: {entry && Moment(entry.due).format('YYYY. MM. DD')}</Text>
         <Text>Done: {entry && (entry.done ? 'done' : 'not yet')}</Text>
       </View>
     )
