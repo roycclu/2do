@@ -1,6 +1,6 @@
-There are two parts to this application: the
-[client] (React Native Application) and the
-[server] (GraphQL server)
+There are two parts to this application: the \n
+client (React Native Application) and the \n
+server (GraphQL server)
 
 # Apollo Server
 
@@ -10,11 +10,11 @@ To get setup:
 
 clone repository
 
-`git clone [url]`
+`git clone https://github.com/roycclu/2do.git`
 
 cd into repository
 
-`cd FinishFirst/apolloserver`
+`cd 2do/apolloserver`
 
 install dependencies
 
@@ -33,10 +33,12 @@ Open GraphQL Explorer on http://localhost:8080/graphiql
 Try submitting a query:
 ```
 query {
-  president(name: "George Washington") {
-    name
-    term
-    party
+  todo(index: 2) {
+    index
+    owner
+    text
+    due
+    done
   }
 }
 
@@ -49,11 +51,11 @@ To get setup
 
 clone repository (if not already done in step 1):
 
-`git clone [url]`
+`git clone https://github.com/roycclu/2do.git`
 
 cd into repository
 
-`cd FinishFirst/apolloclient`
+`cd 2do/apolloclient`
 
 install dependencies
 
