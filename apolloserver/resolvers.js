@@ -1,8 +1,8 @@
 const resolveFunctions = {
   RootQuery: {
-    todo(_, { id }, ctx) {
+    todo(_, { index }, ctx) {
       const todo = new ctx.constructor.ToDo();
-      return todo.findToDo(id);
+      return todo.findToDo(index);
     },
   },
 };

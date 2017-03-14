@@ -2,10 +2,11 @@
 
 const typeDefinitions = `
 type ToDo {
-  id: ID!
+  index: ID
   owner: String
-  text: String!
-  done: Boolean!
+  text: String
+  due: String
+  done: Boolean
 }
 
 input AddToDo {
@@ -14,7 +15,7 @@ input AddToDo {
 }
 
 type RootQuery {
-  todo(id: String, owner: String, text: String, done: Boolean): ToDo
+  todo(index: ID, owner: String, text: String, due: String, done: Boolean): ToDo
 }
 type Mutation {
   todo(text: String, done: Boolean): ToDo

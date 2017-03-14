@@ -4,8 +4,8 @@ const ToDoModel = require('./model')
 
 class ToDo {
   constructor() {
-    this.findToDo = (id) => {
-      const todo = ToDoModel.findOne({ id }, (error, data) => {
+    this.findToDo = (index) => {
+      const todo = ToDoModel.findOne({ index }, (error, data) => {
         return data;
       });
       return todo;

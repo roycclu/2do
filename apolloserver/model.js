@@ -9,9 +9,10 @@ const PresidentSchema = Mongoose.Schema({
 });
 
 const ToDoSchema = Mongoose.Schema({
-  id: String,
+  index: Number,
   owner: String,
   text: String,
+  due: String,
   done: Boolean
 });
 

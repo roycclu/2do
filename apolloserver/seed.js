@@ -5,27 +5,31 @@ const ToDo = require('./model');
 
 const initial = [
   {
-    "id": 1,
+    "ix": 1,
     "ow": "Luke Skywalker",
     "tt": "create a new ToDo",
+    "du": "2016-06-20T02:40:51.699Z",
     "dn": false
   },
   {
-    "id": 2,
+    "ix": 2,
     "ow": "Denny Hsieh",
     "tt": "check off the first ToDo",
+    "du": "2016-06-20T02:40:51.699Z",
     "dn": false
   },
   {
-    "id": 3,
+    "ix": 3,
     "ow": "Luke Skywalker",
     "tt": "create another ToDo",
+    "du": "2016-06-20T02:40:51.699Z",
     "dn": false
   },
   {
-    "id": 4,
+    "ix": 4,
     "ow": "Denny Hsieh",
     "tt": "delete the new ToDo by sliding to the right",
+    "du": "2016-06-20T02:40:51.699Z",
     "dn": false
   }
 ]
@@ -33,9 +37,10 @@ const initial = [
 const seed = () => {
     const data = initial.map((r) => {
       const obj = {};
-      obj.id = r.id;
+      obj.index = r.ix;
       obj.owner = r.ow;
       obj.text = r.tt;
+      obj.due = r.du;
       obj.done = r.dn;
       return obj;
     });
