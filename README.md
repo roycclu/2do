@@ -1,5 +1,5 @@
-There are two parts to this application: the \n
-client (React Native Application) and the \n
+There are two parts to this application: the
+client (React Native Application) and the
 server (GraphQL server)
 
 # Apollo Server
