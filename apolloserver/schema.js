@@ -16,6 +16,7 @@ input AddToDo {
 
 type RootQuery {
   todo(index: ID, owner: String, text: String, due: String, done: Boolean): ToDo
+  todos(index: ID, owner: String, text: String, due: String, done: Boolean): [ ToDo ]
 }
 type Mutation {
   todo(text: String, done: Boolean): ToDo

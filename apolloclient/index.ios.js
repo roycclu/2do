@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { AppRegistry } from 'react-native';
-import App from './app'
+// import App from './app'
+import Browse from './app/scenes/browse'
 
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
@@ -16,7 +17,7 @@ const apolloclient = () => {
   });
   return (
     <ApolloProvider client={client}>
-      <App />
+      <Browse />
     </ApolloProvider>
   )
 }

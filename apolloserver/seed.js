@@ -1,7 +1,7 @@
 'use strict'
 
 const request = require('request-promise');
-const ToDo = require('./model');
+const ToDoModel = require('./model');
 
 const initial = [
   {
@@ -21,20 +21,27 @@ const initial = [
   {
     "ix": 3,
     "ow": "Luke Skywalker",
-    "tt": "create another ToDo",
+    "tt": "check off this ToDo",
     "du": "2016-06-20T02:40:51.699Z",
     "dn": false
   },
   {
     "ix": 4,
     "ow": "Denny Hsieh",
-    "tt": "delete the new ToDo by sliding to the right",
+    "tt": "delete this ToDo by sliding to the right",
     "du": "2016-06-20T02:40:51.699Z",
     "dn": false
   }
 ]
 
 const seed = () => {
+  
+    (function(todomodel){
+      todomodel.remove({}, () => {
+        console.log('removing todos')
+      })
+    }(ToDoModel))
+
     const data = initial.map((r) => {
       const obj = {};
       obj.index = r.ix;
@@ -44,8 +51,8 @@ const seed = () => {
       obj.done = r.dn;
       return obj;
     });
-    data.forEach((d) => {
-      const todo = new ToDo(d);
+    data.forEach((entry) => {
+      const todo = new ToDoModel(entry);
       todo.save((err, item) => {
         console.log('saved:', item)
       });
