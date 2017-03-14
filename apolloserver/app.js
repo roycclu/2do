@@ -28,7 +28,7 @@ const executableSchema = makeExecutableSchema({
   resolvers: Resolvers,
 });
 
-app.use('/graphiql', bodyParser.json(), apolloExpress({
+app.use('/graphql', bodyParser.json(), apolloExpress({
   schema: executableSchema,
   context: {
     constructor: Connectors,
@@ -36,7 +36,7 @@ app.use('/graphiql', bodyParser.json(), apolloExpress({
 }));
 
 app.use('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql',
+  endpointURL: '/graphql'
 }));
 
 app.listen(PORT, () => console.log(
