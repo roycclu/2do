@@ -1,0 +1,37 @@
+{
+  "name": "apolloserver",
+  "version": "0.0.1",
+  "description": "GraphQL server for FinishFirst mobile app",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt nodeunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roycclu/FinishFirst.git"
+  },
+  "keywords": [
+    "todo",
+    "git",
+    "apollo",
+    "graphql",
+    "finish",
+    "first"
+  ],
+  "author": "Roy Lu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roycclu/FinishFirst/issues"
+  },
+  "homepage": "https://github.com/roycclu/FinishFirst#readme",
+  "dependencies": {
+    "apollo-server": "^0.3.3",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "graphql": "^0.9.1",
+    "graphql-tools": "^0.10.1",
+    "mongoose": "^4.8.7",
+    "request": "^2.81.0",
+    "request-promise": "^4.1.1"
+  }
+}
