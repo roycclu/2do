@@ -7,6 +7,8 @@ const app = express();
 const { apolloExpress, graphiqlExpress } = require('apollo-server');
 const { makeExecutableSchema } = require('graphql-tools');
 
+const ToDoModel = require('./model')
+
 Mongoose.Promise = global.Promise;
 Mongoose.connect('mongodb://localhost/apollo', (err) => {
   if (err) {

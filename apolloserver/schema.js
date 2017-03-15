@@ -9,22 +9,20 @@ type ToDo {
   done: Boolean
 }
 
-input AddToDo {
-  owner: String
-  text: String
-}
-
 type RootQuery {
   todo(index: ID, owner: String, text: String, due: String, done: Boolean): ToDo
-  todos(index: ID, owner: String, text: String, due: String, done: Boolean): [ ToDo ]
+  todos: [ ToDo ]
 }
-type Mutation {
-  todo(text: String, done: Boolean): ToDo
+
+type RootMutation {
+  addtodo(owner: String, text: String, due: String): ToDo
+  checktodo(index: ID): ToDo
+  deletetodo(index: ID): ToDo
 }
 
 schema {
   query: RootQuery
-  mutation: Mutation
+  mutation: RootMutation
 }
 `;
 

@@ -9,7 +9,6 @@ class ToDo {
         console.log('data: ',data);
         return data;
       });
-      // console.log('todo: ',todo)
       return todo;
     };
     this.findToDos = () => {
@@ -17,9 +16,18 @@ class ToDo {
         console.log('data: ',data);
         return data;
       });
-      // console.log('todos: ',todos)
       return todos;
-    }
+    };
+    this.addToDo = (owner, text, due) => {
+      // const index = ToDoModel.
+      const entry = {owner: owner, text: text, index: 5, due: due, done: false}
+      const todo = new ToDoModel(entry);
+      todo.save((err, item) => {
+        console.log('saved:', item)
+        return todo;
+      });
+      return todo;
+    };
   }
 }
 module.exports = { ToDo };

@@ -1,6 +1,6 @@
 'use strict'
 
-const request = require('request-promise');
+// const request = require('request-promise');
 const ToDoModel = require('./model');
 
 const initial = [
@@ -35,7 +35,7 @@ const initial = [
 ]
 
 const seed = () => {
-  
+
     (function(todomodel){
       todomodel.remove({}, () => {
         console.log('removing todos')
