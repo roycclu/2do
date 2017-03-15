@@ -10,20 +10,18 @@ import ListItem from './ListItem'
 const propTypes = {
   language: React.PropTypes.string.isRequired,
   ToDoList: React.PropTypes.array.isRequired,
-  onClickRow: React.PropTypes.func.isRequired
+  onCheckBox: React.PropTypes.func.isRequired
 }
 
 class ToDoListView extends Component {
 
   componentWillMount(){
+    console.log(this.constructor.name+" componentWillMount() props: ", this.props)
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2
       })
-    // Object.defineProperty(this.props.ToDoList, 'key', {
-    //   writable: true
-    // })
-    const data = this.convertArrayToMap(this.props.ToDoList)
+    const data = this.convertArrayToMap(this.props.ToDoList || [])
     // const data = this.convertArrayToMap(this.props.ToDoList.sort(this.compare))
 
     this.state = {
@@ -64,14 +62,15 @@ class ToDoListView extends Component {
   }
 
   convertArrayToMap(array){
-    const map = {}
+    const map = {};
+    map[false] = [];
     array.forEach((entry) => {
-      if (!map[entry.done]) {
-        map[entry.done] =[]
-      }
-      map[entry.done].push(entry)
-    })
-    return map
+      if (!map[entry.complete]) {
+        map[entry.complete] =[];
+      };
+      map[entry.complete].push(entry)
+    });
+    return map;
   }
 
   _renderRow = (entry) => {
@@ -84,8 +83,10 @@ class ToDoListView extends Component {
     // </View>
     return (
       <ListItem
+        index={entry.index}
         text={entry.text}
-        onCheck={() => {}}/>
+        complete={entry.complete}
+        onCheckBox={(index) => {this.props.onCheckBox(index)}}/>
     )
   }
 

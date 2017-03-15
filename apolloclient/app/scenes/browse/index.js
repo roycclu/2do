@@ -11,43 +11,74 @@ import Toolbar from '../../components/Toolbar';
 import ToDoListView from '../../components/ToDoListView';
 import AddToDo from '../../components/AddToDo'
 
-class ListViewWithData extends Component {
+class ListViewWithGQL extends Component {
   render() {
-    const query = gql`query ToDoQuery {
+    const queryToDos = gql`query ToDoQuery {
       todos {
         index
         owner
         text
         due
         done
+        complete
       }
     }`
-    const ToDos = ({ data: { todos: ToDoList }}) => {
-      console.log(this.constructor.name+" ToDoList: "+JSON.stringify(ToDoList))
-      return(
-        ToDoList ?
-        <ToDoListView
-          language={'en'}
-          ToDoList={ToDoList}
-          onClickRow={() => {}}
-          />
-        :
-        <View style={{flex: 1}}/>
-    )}
 
-    const ViewWithData = graphql(query, {
-      options: { variables: { }}
-    })(ToDos)
+    const mutateCheckToDo = gql`mutation checktodo($index: ID!, $done: String!) {
+      checktodo (index: $index, done: $done){
+        index
+        owner
+        text
+        due
+      }
+    }`;
+
+    const ViewWithGQL =
+    graphql(mutateCheckToDo, {
+      props: ({ ownProps, mutate }) => ({
+        onCheckBox: (index) => {
+          const done = new Date()
+          console.log(this.constructor.name," mutation checktodo submitted :",index, done.toString())
+          mutate({
+            variables: { index, done },
+            optimisticResponse: {
+              __typename: 'Mutation',
+              checktodo: {
+                __typename: 'ToDo',
+                done: done,
+                complete: true
+              }
+            },
+            refetchQueries: [{
+              query: queryToDos
+            }],
+          });
+          this.props.onCheckSubmitted();
+        },
+      }),
+    })
+    (
+      graphql(queryToDos, {
+        options: { variables: { } },
+        props: ({ data: { todos : ToDoList } }) => ({
+          ToDoList: ToDoList || [],
+          language: 'en'
+        }),
+      })(ToDoListView)
+    )
 
     return (
-      <ViewWithData />
+      <ViewWithGQL />
     )
   }
+}
+ListViewWithGQL.propTypes = {
+  onCheckSubmitted: PropTypes.func.isRequired
 }
 
 class AddToDoWithMutation extends Component {
   render() {
-    const mutation = gql`mutation AddToDo($text: String!) {
+    const mutation = gql`mutation addtodo($text: String!) {
       addtodo (text: $text){
         owner
         text
@@ -55,18 +86,19 @@ class AddToDoWithMutation extends Component {
       }
     }`;
 
-    const ViewWithData = graphql(mutation, {
-      props: ({ mutate }) => ({
-        onClickAdd: (text) => {
-          console.log(this.constructor.name," mutation submitted")
-          mutate({ variables: { text } });
-          this.props.onAddSubmitted();
-        },
-      }),
-    })(AddToDo)
+    const ViewWithGQL =
+      graphql(mutation, {
+        props: ({ mutate }) => ({
+          onClickAdd: (text) => {
+            console.log(this.constructor.name," mutation submitted")
+            mutate({ variables: { text } });
+            this.props.onAddSubmitted();
+          },
+        }),
+      })(AddToDo)
 
     return (
-      <ViewWithData />
+      <ViewWithGQL />
     )
   }
 }
@@ -96,7 +128,8 @@ class Browse extends Component {
           />
         <AddToDoWithMutation
           onAddSubmitted={this.onRefresh.bind(this)}/>
-        <ListViewWithData />
+        <ListViewWithGQL
+          onCheckSubmitted={() => {}}/>
       </View>
     )
   }

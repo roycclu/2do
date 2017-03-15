@@ -7,26 +7,26 @@ const initial = [
   {
     "ow": "Luke Skywalker",
     "tt": "create a new 2do",
-    "du": "2016-06-20T02:40:51.699Z",
-    "dn": false
+    "du": "2017-03-20T02:40:51.699Z",
+    "cm": false
   },
   {
     "ow": "Denny Hsieh",
     "tt": "check off the first 2do",
-    "du": "2016-06-20T02:40:51.699Z",
-    "dn": false
+    "du": "2017-03-20T02:40:51.699Z",
+    "cm": false
   },
   {
     "ow": "Luke Skywalker",
     "tt": "check off this 2do",
-    "du": "2016-06-20T02:40:51.699Z",
-    "dn": false
+    "du": "2017-03-20T02:40:51.699Z",
+    "cm": false
   },
   {
     "ow": "Denny Hsieh",
     "tt": "delete this 2do by sliding to the right",
-    "du": "2016-06-20T02:40:51.699Z",
-    "dn": false
+    "du": "2017-03-20T02:40:51.699Z",
+    "cm": false
   }
 ]
 
@@ -36,7 +36,7 @@ const fill = () => {
     obj.owner = r.ow;
     obj.text = r.tt;
     obj.due = r.du;
-    obj.done = r.dn;
+    obj.complete = r.cm;
     return obj;
   });
   data.forEach((entry) => {

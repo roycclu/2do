@@ -23,7 +23,8 @@ const ToDoSchema = new Schema({
   owner: String,
   text: String,
   due: String,
-  done: Boolean
+  done: String,
+  complete: Boolean
 });
 
 autoIncrement.initialize(db);

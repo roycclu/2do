@@ -14,9 +14,9 @@ const resolveFunctions = {
       const todo = new ctx.constructor.ToDo();
       return todo.addToDo(owner, text, due)
     },
-    checktodo(_, {index}, ctx) {
+    checktodo(_, {index, done}, ctx) {
       const todo = new ctx.constructor.ToDo();
-      todo.checktodo(index)
+      return todo.checktodo(index, done)
     },
     deletetodo(_, {index}, ctx) {
       const todo = new ctx.constructor.ToDo();

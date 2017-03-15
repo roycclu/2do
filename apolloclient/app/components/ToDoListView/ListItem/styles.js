@@ -33,6 +33,12 @@ module.exports = StyleSheet.create({
     marginLeft: (width - shrink)/20
   },
 
+  checkbox: {
+    width: 18,
+    height: 18,
+    marginLeft: (width - shrink)/20
+  },
+
   text: {
     flex: 1,
     fontSize: 16,
