@@ -1,14 +1,15 @@
 'use strict'
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import ToDoListView from '../../components/ToDoListView';
-import Toolbar from '../../components/Toolbar';
 import styles from './styles'
+import Toolbar from '../../components/Toolbar';
+import ToDoListView from '../../components/ToDoListView';
+import AddToDo from '../../components/AddToDo'
 
 class ListViewWithData extends Component {
   render() {
@@ -21,10 +22,8 @@ class ListViewWithData extends Component {
         done
       }
     }`
-
     const ToDos = ({ data: { todos: ToDoList }}) => {
       console.log(this.constructor.name+" ToDoList: "+JSON.stringify(ToDoList))
-
       return(
         ToDoList ?
         <ToDoListView
@@ -37,7 +36,7 @@ class ListViewWithData extends Component {
     )}
 
     const ViewWithData = graphql(query, {
-      options: { variables: { index: 1 }}
+      options: { variables: { }}
     })(ToDos)
 
     return (
@@ -46,10 +45,38 @@ class ListViewWithData extends Component {
   }
 }
 
+class AddToDoWithMutation extends Component {
+  render() {
+    const mutation = gql`mutation AddToDo($text: String!) {
+      addtodo (text: $text){
+        owner
+        text
+        due
+      }
+    }`;
+
+    const ViewWithData = graphql(mutation, {
+      props: ({ mutate }) => ({
+        onClickAdd: (text) => {
+          console.log(this.constructor.name," mutation submitted")
+          mutate({ variables: { text } });
+          this.props.onAddSubmitted();
+        },
+      }),
+    })(AddToDo)
+
+    return (
+      <ViewWithData />
+    )
+  }
+}
+AddToDoWithMutation.propTypes = {
+  onAddSubmitted: PropTypes.func.isRequired
+}
+
 class Browse extends Component {
 
   onClickRow() {
-
   }
 
   onRefresh() {
@@ -67,6 +94,8 @@ class Browse extends Component {
           showIconRightOne
           onClickRightOne = {this.onRefresh.bind(this)}
           />
+        <AddToDoWithMutation
+          onAddSubmitted={this.onRefresh.bind(this)}/>
         <ListViewWithData />
       </View>
     )
