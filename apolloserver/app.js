@@ -10,12 +10,6 @@ const { makeExecutableSchema } = require('graphql-tools');
 const ToDoModel = require('./model')
 
 Mongoose.Promise = global.Promise;
-Mongoose.connect('mongodb://localhost/apollo', (err) => {
-  if (err) {
-    return err;
-  }
-  return true;
-});
 
 const seed = require('./seed');
 

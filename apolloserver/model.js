@@ -1,25 +1,24 @@
 'use strict'
 
 const Mongoose = require('mongoose');
-// const autoIncrement = require('mongoose-auto-increment')
-//
-// var connection = Mongoose.createConnection('mongodb://localhost/apollo', (err) => {
-//   if (err) {
-//     return err;
-//   }
-//   return true;
-// });
+const Schema = Mongoose.Schema;
+const autoIncrement = require('mongoose-auto-increment')
 
+var db = Mongoose.createConnection('mongodb://localhost/apollo', (err) => {
+  if (err) {
+    return err;
+  }
+  return true;
+});
 
-
-const CounterSchema = Mongoose.Schema({
+const CounterSchema = new Schema({
   _id: {type: String, required: true},
   seq: { type: Number, default: 0 }
 });
 
-const CounterModel = Mongoose.model('Counter', CounterSchema);
+const CounterModel = db.model('Counter', CounterSchema);
 
-const ToDoSchema = Mongoose.Schema({
+const ToDoSchema = new Schema({
   index: Number,
   owner: String,
   text: String,
@@ -27,19 +26,10 @@ const ToDoSchema = Mongoose.Schema({
   done: Boolean
 });
 
-ToDoSchema.pre('save', (next) => {
-  var doc = this;
-  CounterModel.findByIdAndUpdate({_id: 'entityId'}, {$inc: { seq: 1} }, (error, counter) => {
-    if (error) return next(error);
-    doc.index = CounterModel.seq;
-    next();
-  });
-})
+autoIncrement.initialize(db);
 
-// autoIncrement.initialize(connection);
-//
-// ToDoSchema.plugin(autoIncrement.plugin, 'ToDo')
+ToDoSchema.plugin(autoIncrement.plugin, { model: 'ToDo', field: 'index' })
 
-const ToDoModel = Mongoose.model('ToDo', ToDoSchema);
+const ToDoModel = db.model('ToDo', ToDoSchema);
 
 module.exports = ToDoModel;
