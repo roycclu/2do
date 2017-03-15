@@ -3,7 +3,7 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
 // import App from './app'
-import Browse from './app/scenes/browse'
+import Browse from './app/containers/Browse'
 
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
