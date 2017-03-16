@@ -223,7 +223,7 @@ export default class WeatherGraph extends Component {
             return (
               <View key={index} style={[styles.tickLabelY, tickStyles]}>
                 <Text style={styles.tickLabelYText}>
-                  {value}&deg;
+                  {value} {' todos'}
                 </Text>
               </View>
             );
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
 
   tickLabelX: {
     position: 'absolute',
-    bottom: 0,
+    bottom: -15,
     fontSize: 12,
     textAlign: 'center',
   },

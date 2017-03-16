@@ -5,7 +5,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgb(147,177,197)"
+    backgroundColor: "rgba(147,177,197,1)"
   },
 
   sectionHeaderContainer: {

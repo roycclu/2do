@@ -8,17 +8,16 @@ import gql from 'graphql-tag';
 
 import styles from './styles'
 import Toolbar from '../../components/Toolbar';
-import Graph from '../../components/Graph'
+import Graph from '../../components/Graph';
 import * as fixtures from '../../components/Graph/fixtures';
-
-// class GraphWithGQL extends Component {
-//
-// }
+import * as seed from '../../components/Graph/seed';
+import OptionTab from '../../components/OptionTab'
 
 class Visual extends Component {
 
   state = {
-    graphData: fixtures.forecastIoData
+    graphData: seed.completionData,
+    showTimely: true
   };
 
   onRefresh() {
@@ -26,15 +25,23 @@ class Visual extends Component {
     this.forceUpdate()
   }
 
+  onChange = (newVal) => {
+    console.log(this.constructor.name," onChange newVal: ", newVal)
+    const showTimely = newVal === 'left';
+    if (this.state.showTimely !== showTimely) {
+      this.setState({ showTimely });
+    }
+  };
+
   render() {
     const graphProps = {};
-      graphProps.data = this.state.graphData.daily.data;
+      graphProps.data = this.state.graphData;
       console.log(this.constructor.name," data: ", JSON.stringify(graphProps.data))
       graphProps.xAccessor = d => new Date(d.time * 1000);
-      if (false) {
-        graphProps.yAccessor = d => d.temperatureMax;
+      if (this.state.showTimely) {
+        graphProps.yAccessor = d => d.ontime;
       } else {
-        graphProps.yAccessor = d => d.temperatureMin;
+        graphProps.yAccessor = d => d.late;
       }
 
     return (
@@ -46,7 +53,13 @@ class Visual extends Component {
           onClickRightOne = {this.onRefresh.bind(this)}
           />
         <View style={styles.content}>
+          <OptionTab
+            default={'left'}
+            leftText={'On Time'}
+            rightText={'Late'}
+            onSwitch={this.onChange.bind(this)}/>
           <Graph {...graphProps} />
+          <View style={{height: 40}}/>
         </View>
       </View>
     )

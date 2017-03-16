@@ -12,7 +12,6 @@ class NavigationBar extends Component {
   updateView(scene){
     const state = this.props.navigationState;
     const children = state.children[0].children;
-    //console.log(scene, children)
     if(scene === "Browse" && children.length > 1){
       Actions.pop()
     }else{
@@ -22,7 +21,6 @@ class NavigationBar extends Component {
   render() {
     const state = this.props.navigationState;
     const children = state.children;
-    //console.log(children, this.props)
     return (
     <NavigationButtons
       ref={(NavigationButtons) => this.NavigationButtons = NavigationButtons}
