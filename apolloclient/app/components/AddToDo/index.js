@@ -11,7 +11,7 @@ const propTypes = {
 }
 
 const defaultProps = {
-  iconSize: 23
+  iconSize: 40
 }
 
 class AddToDo extends Component {
@@ -29,13 +29,14 @@ class AddToDo extends Component {
      <View style={styles.wrapper}>
        <View style={styles.itemWrapper}>
          <TouchableOpacity onPress={() => this.props.onClickAdd(this.state.todo)}>
-           <Icon name='ios-add' size={40} color={'white'}
+           <Icon name='ios-add' size={this.props.iconSize} color={'white'}
              style={styles.iconAdd}/>
          </TouchableOpacity>
          <TextInput
            ref='textInput'
            style={styles.textInput}
            underlineColorAndroid='rgba(0,0,0,0)'
+           onSumbmitEditing={() => this.props.onClickAdd(this.state.todo)}
            onChangeText={(todo) => this.setState({todo, editing: true})}
            placeholder={'Add a 2do...'}
            placeholderTextColor='white'

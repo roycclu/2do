@@ -9,14 +9,11 @@ import NavigationButtons from '../components/NavigationButtons'
 
 class NavigationBar extends Component {
 
-  constructor(props) {
-    super(props)
-  }
   updateView(scene){
     const state = this.props.navigationState;
     const children = state.children[0].children;
     //console.log(scene, children)
-    if(scene === "Timeline" && children.length > 1){
+    if(scene === "Browse" && children.length > 1){
       Actions.pop()
     }else{
       Actions[scene]()
@@ -29,7 +26,8 @@ class NavigationBar extends Component {
     return (
     <NavigationButtons
       ref={(NavigationButtons) => this.NavigationButtons = NavigationButtons}
-      onClick={(scene) => this.updateView(scene)} active="Timeline"
+      onClick={(scene) => this.updateView(scene)}
+      active="Browse"
       >
       <DefaultRenderer
         navigationState={children[0]}

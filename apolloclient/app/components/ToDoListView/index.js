@@ -32,7 +32,8 @@ class ToDoListView extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(this.constructor.name+" ",nextProps.ToDoList)
+    // console.log(this.constructor.name+" ", nextProps.ToDoList)
+    // console.log(this.constructor.name+" ", JSON.stringify(nextProps.ToDoList))
     if (nextProps.ToDoList != this.state.dataSource) {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRowsAndSections(

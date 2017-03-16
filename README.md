@@ -61,6 +61,16 @@ install dependencies
 
 `yarn`
 
+enable ART in react-native
+
+"To add ART.xcodeproj find the file at node_modules/react-native/Libraries/ART/ART.xcodeproj and just drag it over to the Libraries section in XCode.
+Next we'll link the binary.
+With the root project selected on the left, select Build Phases from the center view. There will be a section called 'Link Binary With Libraries', expand it, press the + and select libART.a"
+
+link dependencies
+
+`react-native link`
+
 run project
 
 `react-native run-ios` or `react-native run-android`

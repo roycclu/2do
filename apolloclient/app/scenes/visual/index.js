@@ -8,8 +8,18 @@ import gql from 'graphql-tag';
 
 import styles from './styles'
 import Toolbar from '../../components/Toolbar';
+import Graph from '../../components/Graph'
+import * as fixtures from '../../components/Graph/fixtures';
+
+// class GraphWithGQL extends Component {
+//
+// }
 
 class Visual extends Component {
+
+  state = {
+    graphData: fixtures.forecastIoData
+  };
 
   onRefresh() {
     console.log(this.constructor.name+" onRefresh() forceUpdate")
@@ -17,16 +27,27 @@ class Visual extends Component {
   }
 
   render() {
+    const graphProps = {};
+      graphProps.data = this.state.graphData.daily.data;
+      console.log(this.constructor.name," data: ", JSON.stringify(graphProps.data))
+      graphProps.xAccessor = d => new Date(d.time * 1000);
+      if (false) {
+        graphProps.yAccessor = d => d.temperatureMax;
+      } else {
+        graphProps.yAccessor = d => d.temperatureMin;
+      }
+
     return (
       <View style={styles.container}>
         <Toolbar
           hideStatusBarBG = {Platform.OS != 'ios'}
           text = {'2do Visual'}
           showProgressDots={false}
-          showIconRightOne
           onClickRightOne = {this.onRefresh.bind(this)}
           />
-        <View style={{flex: 1}}/>
+        <View style={styles.content}>
+          <Graph {...graphProps} />
+        </View>
       </View>
     )
   }

@@ -9,13 +9,13 @@ import styles from './styles'
 
 export default class NavigationButtons extends React.Component {
 
-  constructor(props){
-    super(props)
+  componentWillMount(){
     this.state = {
       active: this.props.active,
       hidden: this.props.hidden
     }
   }
+
   onClick(linkName) {
     if (this.props.onClick) {
       this.props.onClick(linkName)
@@ -30,20 +30,20 @@ export default class NavigationButtons extends React.Component {
         {this.props.children}
         <LinearGradient
         locations={[0.6,1]}
-        colors={['rgba(255,255,255,0.01)', 'rgba(255,255,255,0.8)']}
+        colors={['rgba(255,255,255,0.01)', 'rgba(255,255,255,0.5)']}
         style={[styles.container, this.state.hidden ? {'opacity': 0} : null]}
         >
           <View style={styles.innerContainer}>
           <TouchableOpacity style={styles.timelineContainer} onPress={() => this.onClick("Browse")}>
-          <Icon
-                style={this.state.active === 'Timeline'? styles.timelineActive : styles.timeline}
-                name="md-infinite" size={22} color="#8F8F9C"
-                />
+            <Icon
+              style={this.state.active === 'Browse'? styles.timelineActive : styles.timeline}
+              name="logo-buffer" size={30} color="#8F8F9C"
+              />
           </TouchableOpacity>
           <TouchableOpacity style={styles.meContainer} onPress={() => this.onClick("Visual")}>
               <Icon
-              style={this.state.active === 'Me'? styles.meActive : styles.me}
-               name="md-person" size={22} color="#8F8F9C" />
+                style={this.state.active === 'Visual'? styles.meActive : styles.me}
+                name="ios-color-filter" size={30} color="#8F8F9C" />
            </TouchableOpacity>
           </View>
         </LinearGradient>

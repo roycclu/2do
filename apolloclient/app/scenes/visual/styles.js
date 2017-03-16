@@ -7,6 +7,12 @@ module.exports = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  content: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   input: {
     backgroundColor: '#dddddd',
     height: 50,
