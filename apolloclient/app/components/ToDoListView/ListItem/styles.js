@@ -18,7 +18,8 @@ module.exports = StyleSheet.create({
     paddingLeft: 5,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0)'
   },
 
   itemWrapper: {
@@ -26,6 +27,8 @@ module.exports = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     borderRadius: 5,
+    flex: 1,
+    height: 42
   },
 
   iconCheck: {
@@ -42,8 +45,7 @@ module.exports = StyleSheet.create({
   text: {
     flex: 1,
     fontSize: 16,
-    height: 22,
-    backgroundColor: 'rgba(255,0,0,.1)',
+    backgroundColor: 'rgba(0,0,0,0)',
     fontWeight: '300',
     color: 'rgba(0,0,0,.8)',
     paddingBottom: 0

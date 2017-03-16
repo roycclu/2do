@@ -11,13 +11,14 @@ module.exports = StyleSheet.create({
   statusBariPhone: {
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: '#BC0031',
+    backgroundColor: '#358ec8',
     height: 20
   },
-
+// '#7dc0ea'
+// '#4aa6d9'
   toolbar: {
     flexDirection: 'row',
-    backgroundColor: '#BC0031',
+    backgroundColor: '#358ec8',
     justifyContent: 'flex-end',
     alignItems: 'center',
     height: 40,
@@ -35,7 +36,7 @@ module.exports = StyleSheet.create({
   },
 
   contentWrapper: {
-    flex: 4.5,
+    flex: 3,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'

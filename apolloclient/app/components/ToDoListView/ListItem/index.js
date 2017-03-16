@@ -34,9 +34,11 @@ class ListItem extends Component {
     // <Icon name='ios-radio-button-off' size={20} color={'rgba(0,0,0,.4)'}
     //   style={styles.iconCheck}/>
    console.log(this.constructor.name+" render() component")
+   const backgroundColor = this.state.checked ? {backgroundColor: 'rgba(255,255,255,.5)'} : {} ;
+   const fontColor = this.state.checked ? {color: 'rgba(0,0,0,.4)'} : {} ;
    return (
      <View style={styles.wrapper}>
-       <View style={styles.itemWrapper}>
+       <View style={[styles.itemWrapper, backgroundColor]}>
          <TouchableOpacity onPress={() => this.props.onClickAdd(this.props.index)}>
            <CheckBox
             label={''}
@@ -48,7 +50,7 @@ class ListItem extends Component {
                 if (!status) this.props.onCheckBox(this.props.index);
               }}/>
          </TouchableOpacity>
-         <Text style={styles.text}>{this.props.text}</Text>
+         <Text style={[styles.text, fontColor]}>{this.props.text}</Text>
        </View>
      </View>
   )}

@@ -121,7 +121,7 @@ class Browse extends Component {
       <View style={styles.container}>
         <Toolbar
           hideStatusBarBG = {Platform.OS != 'ios'}
-          text = {'2do App'}
+          text = {'2do Browse'}
           showProgressDots={false}
           showIconRightOne
           onClickRightOne = {this.onRefresh.bind(this)}

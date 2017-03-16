@@ -63,12 +63,17 @@ class ToDoListView extends Component {
 
   convertArrayToMap(array){
     const map = {};
-    map[false] = [];
+    map['ToDo'] = [];
+    map['Complete'] = [];
     array.forEach((entry) => {
-      if (!map[entry.complete]) {
-        map[entry.complete] =[];
-      };
-      map[entry.complete].push(entry)
+      // if (!map[entry.complete]) {
+      //   map[entry.complete] =[];
+      // };
+      if (entry.complete) {
+        map['Complete'].push(entry)
+      } else {
+        map['ToDo'].push(entry)
+      }
     });
     return map;
   }

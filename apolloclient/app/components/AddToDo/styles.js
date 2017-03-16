@@ -17,7 +17,8 @@ module.exports = StyleSheet.create({
     paddingLeft: 5,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: 'rgb(147,177,197)'
   },
 
   itemWrapper: {

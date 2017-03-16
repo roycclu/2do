@@ -5,34 +5,37 @@ import { StyleSheet, Dimensions } from 'react-native';
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "rgb(147,177,197)"
   },
 
   sectionHeaderContainer: {
-    width: Dimensions.get('window').width,
-    height: 25,
+    width: 80,
+    height: 22,
     flexDirection: 'row',
-    paddingTop: 5,
-    paddingBottom: 5,
-    backgroundColor: 'rgba(0,0,0,0.15)'
+    paddingTop: 3,
+    paddingBottom: 3,
+    backgroundColor: 'rgba(0,0,0,0.05)',
+    borderRadius: 6,
+    alignSelf: 'center',
+    alignItems: 'center'
   },
 
   spaceKeeperSectionHeaderLeft: {
-    flex: 0.3
+    flex: 1
   },
 
   sectionHeader: {
-    fontSize: 12
+    fontSize: 12,
   },
 
   spaceKeeperSectionHeaderRight: {
-    flex: 1.8
+    flex: 1
   },
 
   separatorContainer: {
     flexDirection: 'row',
     height: 0.5,
-    backgroundColor: 'rgba(0,0,0,0.5)'
+    backgroundColor: 'rgba(0,0,0,0.0)'
   }
 
 });
