@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
 
   tickLabelX: {
     position: 'absolute',
-    bottom: -15,
+    bottom: -20,
     fontSize: 12,
     textAlign: 'center',
   },

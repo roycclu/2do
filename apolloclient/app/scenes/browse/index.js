@@ -116,7 +116,7 @@ class Browse extends Component {
   }
 
   onRefresh() {
-    console.log(this.constructor.name+" onRefresh() forceUpdate")
+    // console.log(this.constructor.name+" onRefresh() forceUpdate")
     // this.forceUpdate()
   }
 
