@@ -55,8 +55,8 @@ class Visual extends Component {
         <View style={styles.content}>
           <OptionTab
             default={'left'}
-            leftText={'On Time'}
-            rightText={'Late'}
+            leftText={'准时完成'}
+            rightText={'迟过目标'}
             onSwitch={this.onChange.bind(this)}/>
           <Graph {...graphProps} />
           <View style={{height: 40}}/>

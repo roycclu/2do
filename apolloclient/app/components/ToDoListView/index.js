@@ -117,10 +117,11 @@ class ToDoListView extends Component {
     )
   }
 
-  _renderHeader(){
+  _renderHeader = () => {
     return (
       <Header
-        onClickAdd={(text) => {this.props.onClickAdd(text)}}/>
+        onClickAdd={(text) => {this.props.onClickAdd(text)}}
+      />
     )
   }
 

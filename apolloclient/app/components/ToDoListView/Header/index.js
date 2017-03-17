@@ -23,12 +23,17 @@ class AddToDo extends Component {
     }
   }
 
+  onClickAdd(){
+    this.props.onClickAdd(this.state.todo);
+    this.setState({todo: ''});
+  }
+
   render() {
    console.log(this.constructor.name+" render() component")
    return (
      <View style={styles.wrapper}>
        <View style={styles.itemWrapper}>
-         <TouchableOpacity onPress={() => this.props.onClickAdd(this.state.todo)}>
+         <TouchableOpacity onPress={this.onClickAdd.bind(this)}>
            <Icon name='ios-add' size={this.props.iconSize} color={'white'}
              style={styles.iconAdd}/>
          </TouchableOpacity>
@@ -36,7 +41,7 @@ class AddToDo extends Component {
            ref='textInput'
            style={styles.textInput}
            underlineColorAndroid='rgba(0,0,0,0)'
-           onSumbmitEditing={() => this.props.onClickAdd(this.state.todo)}
+           onSumbmitEditing={this.onClickAdd.bind(this)}
            onChangeText={(todo) => this.setState({todo, editing: true})}
            placeholder={'Add a 2do...'}
            placeholderTextColor='white'
