@@ -6,25 +6,25 @@ const ToDoModel = require('./model');
 const initial = [
   {
     "ow": "Luke Skywalker",
-    "tt": "create a new 2do",
+    "tt": "创一个你的需完成事项",
     "du": "2017-03-20T02:40:51.699Z",
     "cm": false
   },
   {
     "ow": "Denny Hsieh",
-    "tt": "check off the first 2do",
+    "tt": "点选下方图像切换页面",
     "du": "2017-03-20T02:40:51.699Z",
     "cm": false
   },
   {
     "ow": "Luke Skywalker",
-    "tt": "check off this 2do",
+    "tt": "滑动这个项目以删除",
     "du": "2017-03-20T02:40:51.699Z",
     "cm": false
   },
   {
     "ow": "Denny Hsieh",
-    "tt": "delete this 2do by sliding to the right",
+    "tt": "勾选这个项目，确认事情完成",
     "du": "2017-03-20T02:40:51.699Z",
     "cm": false
   }

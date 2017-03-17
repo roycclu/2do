@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import styles from './styles'
@@ -33,39 +33,61 @@ class ListViewWithGQL extends Component {
       }
     }`;
 
-    const ViewWithGQL =
-    graphql(mutateCheckToDo, {
+    const mutationAddTodo = gql`mutation addtodo($text: String!) {
+      addtodo (text: $text){
+        owner
+        text
+        due
+      }
+    }`;
+
+    const ViewWithGQL = compose
+    (
+    graphql(mutationAddTodo, {
+      // name: 'onClickAdd',
       props: ({ ownProps, mutate }) => ({
-        onCheckBox: (index) => {
-          const done = new Date()
-          console.log(this.constructor.name," mutation checktodo submitted :",index, done.toString())
-          mutate({
-            variables: { index, done },
-            optimisticResponse: {
-              __typename: 'Mutation',
-              checktodo: {
-                __typename: 'ToDo',
-                done: done,
-                complete: true
-              }
-            },
-            refetchQueries: [{
-              query: queryToDos
-            }],
-          });
-          this.props.onCheckSubmitted();
+        onClickAdd: (text) => {
+          console.log(this.constructor.name," mutation submitted")
+          mutateAddToDo({ variables: { text } });
+          this.props.onAddSubmitted();
         },
       }),
-    })
-    (
-      graphql(queryToDos, {
-        options: { variables: { } },
-        props: ({ data: { todos : ToDoList } }) => ({
-          ToDoList: ToDoList || [],
-          language: 'en'
+    }),
+      graphql(mutateCheckToDo, {
+        // name: 'onCheckBox',
+        props: ({ ownProps, mutate }) => ({
+          onCheckBox: (index) => {
+            const done = new Date()
+            console.log(this.constructor.name," mutation checktodo submitted :",index, done.toString())
+            mutate({
+              variables: { index, done },
+              optimisticResponse: {
+                __typename: 'Mutation',
+                checktodo: {
+                  __typename: 'ToDo',
+                  index: index,
+                  done: done,
+                  complete: true
+                }
+              },
+              refetchQueries: [{
+                query: queryToDos
+              }],
+            });
+            this.props.onCheckSubmitted();
+          },
         }),
-      })(ToDoListView)
+      }),
     )
+      (
+        graphql(queryToDos, {
+          options: { variables: { } },
+          props: ({ data: { todos : ToDoList } }) => ({
+            ToDoList: ToDoList || [],
+            language: 'en'
+          }),
+        })(ToDoListView)
+      )
 
     return (
       <ViewWithGQL />
@@ -126,9 +148,8 @@ class Browse extends Component {
           showIconRightOne
           onClickRightOne = {this.onRefresh.bind(this)}
           />
-        <AddToDoWithMutation
-          onAddSubmitted={this.onRefresh.bind(this)}/>
         <ListViewWithGQL
+          onAddSubmitted={this.onRefresh.bind(this)}
           onCheckSubmitted={() => {}}/>
       </View>
     )

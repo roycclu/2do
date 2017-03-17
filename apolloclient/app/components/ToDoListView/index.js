@@ -6,11 +6,13 @@ import Moment from 'moment'
 
 import styles from './styles.js'
 import ListItem from './ListItem'
+import Header from './Header'
 
 const propTypes = {
   language: React.PropTypes.string.isRequired,
   ToDoList: React.PropTypes.array.isRequired,
-  onCheckBox: React.PropTypes.func.isRequired
+  onCheckBox: React.PropTypes.func.isRequired,
+  onClickAdd: React.PropTypes.func.isRequired
 }
 
 class ToDoListView extends Component {
@@ -97,19 +99,28 @@ class ToDoListView extends Component {
   }
 
   _renderSectionHeader(sectionData, sectionID){
-    return (
-      <View style={styles.sectionHeaderContainer}>
-        <View style={styles.spaceKeeperSectionHeaderLeft}/>
-        <Text style={styles.sectionHeader}>{sectionID}</Text>
-        <View style={styles.spaceKeeperSectionHeaderRight}/>
-      </View>
-    )
+    return ( <View/> )
+    // return (
+    //   sectionID === "ToDo" ? <View/> :
+    //   <View style={styles.sectionHeaderContainer}>
+    //     <View style={styles.spaceKeeperSectionHeaderLeft}/>
+    //     <Text style={styles.sectionHeader}>{sectionID}</Text>
+    //     <View style={styles.spaceKeeperSectionHeaderRight}/>
+    //   </View>
+    // )
   }
 
   _renderSeparator(sectionID, rowID, adjacentRowHighlighted){
     return (
       <View key={sectionID+"-"+rowID} style={styles.separatorContainer}>
       </View>
+    )
+  }
+
+  _renderHeader(){
+    return (
+      <Header
+        onClickAdd={(text) => {this.props.onClickAdd(text)}}/>
     )
   }
 
@@ -122,6 +133,7 @@ class ToDoListView extends Component {
           renderRow={this._renderRow}
           renderSectionHeader={this._renderSectionHeader}
           renderSeparator={this._renderSeparator}
+          renderHeader={this._renderHeader}
           enableEmptySections={true}
         />
       </View>

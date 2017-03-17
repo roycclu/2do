@@ -34,15 +34,17 @@ class ListItem extends Component {
     // <Icon name='ios-radio-button-off' size={20} color={'rgba(0,0,0,.4)'}
     //   style={styles.iconCheck}/>
    console.log(this.constructor.name+" render() component")
-   const backgroundColor = this.state.checked ? {backgroundColor: 'rgba(255,255,255,.5)'} : {} ;
-   const fontColor = this.state.checked ? {color: 'rgba(0,0,0,.4)'} : {} ;
+   const lintItemStyle = this.state.checked ? {backgroundColor: 'rgba(255,255,255,.5)'} : {} ;
+   const checkBoxStyle = this.state.checked ? { backgroundColor: 'transparent'} : {} ;
+   const fontStyle = this.state.checked ?
+      {color: 'rgba(0,0,0,.4)', textDecorationLine: 'line-through'} : {} ;
    return (
      <View style={styles.wrapper}>
-       <View style={[styles.itemWrapper, backgroundColor]}>
+       <View style={[styles.itemWrapper, lintItemStyle]}>
          <TouchableOpacity onPress={() => this.props.onClickAdd(this.props.index)}>
            <CheckBox
             label={''}
-            checkboxStyle={styles.checkbox}
+            checkboxStyle={[styles.checkbox, checkBoxStyle]}
             checked={this.state.checked}
             onChange={(status) => {
                 console.log(this.constructor.name+" changed to "+!status);
@@ -50,7 +52,7 @@ class ListItem extends Component {
                 if (!status) this.props.onCheckBox(this.props.index);
               }}/>
          </TouchableOpacity>
-         <Text style={[styles.text, fontColor]}>{this.props.text}</Text>
+         <Text style={[styles.text, fontStyle]}>{this.props.text}</Text>
        </View>
      </View>
   )}
