@@ -93,7 +93,7 @@ class ToDoListView extends Component {
       <ListItem
         index={entry.index}
         text={entry.text}
-        complete={entry.complete}
+        complete={entry.complete || false}
         onCheckBox={(index) => {this.props.onCheckBox(index)}}/>
     )
   }

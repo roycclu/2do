@@ -31,8 +31,6 @@ class ListItem extends Component {
   }
 
   render() {
-    // <Icon name='ios-radio-button-off' size={20} color={'rgba(0,0,0,.4)'}
-    //   style={styles.iconCheck}/>
    console.log(this.constructor.name+" render() component")
    const listItemStyle = this.state.checked ? { backgroundColor: 'rgba(255,255,255,.5)'} : {} ;
    const checkBoxStyle = this.state.checked ? { color: 'rgba(0,0,0,.2)'} : {} ;
@@ -47,7 +45,7 @@ class ListItem extends Component {
              checked={this.state.checked}
              onChange={(status) => {
                 console.log(this.constructor.name+" changed to "+status);
-                this.setState({checked: status});
+                // this.setState({checked: status});
                 if (status) this.props.onCheckBox(this.props.index);
               }}/>
          </TouchableOpacity>

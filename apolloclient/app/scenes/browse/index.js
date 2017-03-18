@@ -5,6 +5,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform } from 'r
 
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import update from 'immutability-helper';
 
 import styles from './styles'
 import Toolbar from '../../components/Toolbar';
@@ -47,15 +48,28 @@ class ListViewWithGQL extends Component {
         // name: 'onClickAdd',
         props: ({ ownProps, mutate }) => ({
           onClickAdd: (text) => {
-            console.log(this.constructor.name," mutation addtodo submitted")
+            console.log(this.constructor.name," mutation addtodo submitted:", text)
             mutate({
               variables: { text },
               optimisticResponse: {
-                __typename: 'mutation',
+                __typename: 'Mutation',
                 addtodo: {
                   __typename: 'ToDo',
-                  text: text
+                  text: text,
+                  //TODO: update this with an indexing mechanism?
+                  index: "1000000000000000"
                 }
+              },
+              updateQueries: {
+                ToDoQuery: (previousResult, { mutationResult }) => {
+                  const newToDo = mutationResult.data.addtodo;
+                  console.log(this.constructor.name, "previousResult: ", previousResult);
+                  return update( previousResult, {
+                    todos: {
+                      $unshift: [newToDo],
+                    },
+                  });
+                },
               },
               refetchQueries: [{
                 query: queryToDos
@@ -66,7 +80,6 @@ class ListViewWithGQL extends Component {
         }),
       }),
       graphql(mutateCheckToDo, {
-        // name: 'onCheckBox',
         props: ({ ownProps, mutate }) => ({
           onCheckBox: (index) => {
             const done = new Date()
@@ -74,13 +87,27 @@ class ListViewWithGQL extends Component {
             mutate({
               variables: { index, done },
               optimisticResponse: {
-                __typename: 'mutation',
+                __typename: 'Mutation',
                 checktodo: {
                   __typename: 'ToDo',
                   index: index,
                   done: done,
                   complete: true
                 }
+              },
+              updateQueries: {
+                ToDoQuery: ( previousResult, { mutationResult }) => {
+                  const checktodo = mutationResult.data.checktodo;
+                  console.log(this.constructor.name, "previousResult: ", JSON.stringify(previousResult), " checktodo: ", JSON.stringify(checktodo));
+                  let index = previousResult.todos.findIndex(x => (x.index == checktodo.index));
+                  if (index === -1) index = 0;
+                  console.log(this.constructor.name, " index: ", index)
+                  return update( previousResult, {
+                    todos: {
+                      [index]: { $merge: {done: checktodo.done, complete: true} }
+                    }
+                  });
+                },
               },
               refetchQueries: [{
                 query: queryToDos
