@@ -5,8 +5,9 @@ import {
   View, Text, Platform, StatusBar, TextInput, TouchableOpacity } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
-import CheckBox from '../../CheckBox'
+import Swipeout from 'react-native-swipe-out';
 
+import CheckBox from '../../CheckBox'
 import styles from './styles'
 
 const propTypes = {
@@ -14,6 +15,7 @@ const propTypes = {
   text: React.PropTypes.string.isRequired,
   complete: React.PropTypes.bool.isRequired,
   onCheckBox: React.PropTypes.func.isRequired,
+  onDelete: React.PropTypes.func.isRequired,
 }
 
 class ListItem extends Component {
@@ -30,13 +32,28 @@ class ListItem extends Component {
     }
   }
 
+  delBtn = (
+    <View style={styles.delBtn}>
+      <Text>{'删除'}</Text>
+    </View>
+  )
+
   render() {
    console.log(this.constructor.name+" render() component")
    const listItemStyle = this.state.checked ? { backgroundColor: 'rgba(255,255,255,.5)'} : {} ;
    const checkBoxStyle = this.state.checked ? { color: 'rgba(0,0,0,.2)'} : {} ;
    const fontStyle = this.state.checked ?
       {color: 'rgba(0,0,0,.4)', textDecorationLine: 'line-through'} : {} ;
+   let swipeBtns = [{
+     component: this.delBtn,
+     backgroundColor: 'transparent',
+     onPress: () => this.props.onDelete(this.props.index) 
+   }];
    return (
+     <Swipeout
+       right={swipeBtns}
+       autoClose='true'
+       backgroundColor='transparent'>
      <View style={styles.wrapper}>
        <View style={[styles.itemWrapper, listItemStyle]}>
          <TouchableOpacity onPress={() => this.props.onClickAdd(this.props.index)}>
@@ -52,6 +69,7 @@ class ListItem extends Component {
          <Text style={[styles.text, fontStyle]}>{this.props.text}</Text>
        </View>
      </View>
+     </Swipeout>
   )}
 }
 

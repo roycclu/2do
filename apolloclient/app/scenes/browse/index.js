@@ -25,6 +25,14 @@ class ListViewWithGQL extends Component {
       }
     }`
 
+    const mutationAddTodo = gql`mutation addtodo($text: String!) {
+      addtodo (text: $text){
+        owner
+        text
+        due
+      }
+    }`;
+
     const mutateCheckToDo = gql`mutation checktodo($index: ID!, $done: String!) {
       checktodo (index: $index, done: $done){
         index
@@ -34,11 +42,10 @@ class ListViewWithGQL extends Component {
       }
     }`;
 
-    const mutationAddTodo = gql`mutation addtodo($text: String!) {
-      addtodo (text: $text){
-        owner
+    const mutateDeleteToDo = gql`mutation deletetodo($index: ID!) {
+      deletetodo (index: $index){
+        index
         text
-        due
       }
     }`;
 
@@ -105,6 +112,43 @@ class ListViewWithGQL extends Component {
                   return update( previousResult, {
                     todos: {
                       [index]: { $merge: {done: checktodo.done, complete: true} }
+                    }
+                  });
+                },
+              },
+              refetchQueries: [{
+                query: queryToDos
+              }],
+            });
+            this.props.onCheckSubmitted();
+          },
+        }),
+      }),
+      graphql(mutateDeleteToDo, {
+        props: ({ ownProps, mutate }) => ({
+          onDelete: (index) => {
+            console.log(this.constructor.name," mutation deletetodo submitted: ",index)
+            mutate({
+              variables: { index },
+              optimisticResponse: {
+                __typename: 'Mutation',
+                deletetodo: {
+                  __typename: 'ToDo',
+                  index: index,
+                }
+              },
+              updateQueries: {
+                ToDoQuery: ( previousResult, { mutationResult }) => {
+                  const deletetodo = mutationResult.data.deletetodo;
+                  console.log(this.constructor.name, "previousResult: ", JSON.stringify(previousResult), " deletetodo: ", JSON.stringify(deletetodo));
+                  let index = previousResult.todos.findIndex(x => (x.index == deletetodo.index));
+                  if (index === -1) index = 0;
+                  console.log(this.constructor.name, " index: ", index)
+                  return update( previousResult, {
+                    todos: {
+                      $splice: [
+                        [index, 1]
+                      ]
                     }
                   });
                 },

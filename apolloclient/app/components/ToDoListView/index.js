@@ -1,8 +1,8 @@
 'use strict'
 
-import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, ListView } from 'react-native'
-import Moment from 'moment'
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, ListView } from 'react-native';
+import Moment from 'moment';
 
 import styles from './styles.js'
 import ListItem from './ListItem'
@@ -12,7 +12,8 @@ const propTypes = {
   language: React.PropTypes.string.isRequired,
   ToDoList: React.PropTypes.array.isRequired,
   onCheckBox: React.PropTypes.func.isRequired,
-  onClickAdd: React.PropTypes.func.isRequired
+  onClickAdd: React.PropTypes.func.isRequired,
+  onDelete: React.PropTypes.func.isRequired,
 }
 
 class ToDoListView extends Component {
@@ -82,19 +83,13 @@ class ToDoListView extends Component {
   }
 
   _renderRow = (entry) => {
-    // <View style={{paddingLeft: 20, paddingTop: 20}}>
-    //   <Text>Index: {entry && entry.index}</Text>
-    //   <Text>Owner: {entry && entry.owner}</Text>
-    //   <Text>ToDo: {entry && entry.text}</Text>
-    //   <Text>Due: {entry && Moment(entry.due).format('YYYY. MM. DD')}</Text>
-    //   <Text>Done: {entry && (entry.done ? 'done' : 'not yet')}</Text>
-    // </View>
     return (
       <ListItem
         index={entry.index}
         text={entry.text}
         complete={entry.complete || false}
-        onCheckBox={(index) => {this.props.onCheckBox(index)}}/>
+        onCheckBox={(index) => {this.props.onCheckBox(index)}}
+        onDelete={this.props.onDelete.bind(this)}/>
     )
   }
 

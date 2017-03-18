@@ -49,6 +49,17 @@ module.exports = StyleSheet.create({
     fontWeight: '300',
     color: 'rgba(0,0,0,.8)',
     paddingBottom: 0
+  },
+
+  delBtn: {
+    backgroundColor: 'red',
+    flex: 1,
+    padding: 5,
+    margin: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5
   }
+
 
 });
