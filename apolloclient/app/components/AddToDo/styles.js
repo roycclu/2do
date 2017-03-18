@@ -28,9 +28,21 @@ module.exports = StyleSheet.create({
     borderRadius: 5
   },
 
+  itemLeft: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
   iconAdd: {
     marginRight: (width - shrink)/20,
     marginLeft: (width - shrink)/20
+  },
+
+  itemRight: {
+    flex: 8,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 
   textInput: {

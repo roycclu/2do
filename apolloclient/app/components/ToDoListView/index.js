@@ -2,7 +2,9 @@
 
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, ListView } from 'react-native';
+
 import Moment from 'moment';
+import update from 'immutability-helper';
 
 import styles from './styles.js'
 import ListItem from './ListItem'
@@ -25,7 +27,6 @@ class ToDoListView extends Component {
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2
       })
     const data = this.convertArrayToMap(this.props.ToDoList || [])
-    // const data = this.convertArrayToMap(this.props.ToDoList.sort(this.compare))
 
     this.state = {
       language: this.props.language,
@@ -36,7 +37,6 @@ class ToDoListView extends Component {
 
   componentWillReceiveProps(nextProps){
     // console.log(this.constructor.name+" ", nextProps.ToDoList)
-    // console.log(this.constructor.name+" ", JSON.stringify(nextProps.ToDoList))
     if (nextProps.ToDoList != this.state.dataSource) {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRowsAndSections(
@@ -52,42 +52,48 @@ class ToDoListView extends Component {
     // }
   }
 
-  compare(a, b){
-    a.writable = true;
-    b.writable = true;
-    const indexSort = a.index < b.index
-    if (indexSort) {
-      return 1
-    } else {
-      return -1
-    }
-    return 0
-    return
-  }
+  // compare(a, b){
+  //   a.writable = true;
+  //   b.writable = true;
+  //   const indexSort = a.index < b.index
+  //   if (indexSort) {
+  //     return 1
+  //   } else {
+  //     return -1
+  //   }
+  //   return 0
+  //   return
+  // }
 
   convertArrayToMap(array){
     const map = {};
+    var firstOne = true;
     map['ToDo'] = [];
     map['Complete'] = [];
     array.forEach((entry) => {
-      // if (!map[entry.complete]) {
-      //   map[entry.complete] =[];
-      // };
+      console.log(this.constructor.name," entry: ",entry)
       if (entry.complete) {
         map['Complete'].push(entry)
       } else {
-        map['ToDo'].push(entry)
+        map['ToDo'].push( update( entry,
+          {
+            $merge: { clickable: firstOne }
+          }
+        ))
+        if (firstOne) { firstOne = false; }
       }
     });
     return map;
   }
 
   _renderRow = (entry) => {
+    // console.log(this.constructor.name," entry: ",entry)
     return (
       <ListItem
         index={entry.index}
         text={entry.text}
         complete={entry.complete || false}
+        clickable={entry.clickable}
         onCheckBox={(index) => {this.props.onCheckBox(index)}}
         onDelete={this.props.onDelete.bind(this)}/>
     )

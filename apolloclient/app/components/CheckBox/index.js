@@ -8,7 +8,8 @@ import styles from './styles'
 
 const propTypes = {
   onChange: React.PropTypes.func.isRequired,
-  checked: React.PropTypes.boolean,
+  checked: React.PropTypes.bool,
+  clickable: React.PropTypes.bool,
   checkboxStyle: React.PropTypes.object
 }
 
@@ -48,22 +49,25 @@ class CheckBox extends Component {
    return (
      <View style={styles.wrapper}>
      {
-       this.state.checked ?
-       <Icon
-          name={"ios-radio-button-on"}
-          size={this.props.iconSize}
-          color="rgb(255,255,255)"
-          style={this.props.checkBoxStyle}
-          onPress={this.setUnchecked}
-          hitSlop={{top: 5, bottom: 5, right: 5, left: 5}}/>
-        :
-        <Icon
-           name={"ios-radio-button-off"}
-           size={this.props.iconSize}
-           color="rgb(255,255,255)"
-           style={this.props.checkBoxStyle}
-           onPress={this.setChecked}
-           hitSlop={{top: 5, bottom: 5, right: 5, left: 5}}/>
+       this.props.clickable ?
+         this.state.checked ?
+         <Icon
+            name={"ios-radio-button-on"}
+            size={this.props.iconSize}
+            color="rgb(255,255,255)"
+            style={[styles.checkBoxStyle, this.props.checkBoxStyle]}
+            onPress={this.setUnchecked}
+            hitSlop={{top: 5, bottom: 5, right: 5, left: 5}}/>
+          :
+          <Icon
+             name={"ios-radio-button-off"}
+             size={this.props.iconSize}
+             color="rgb(255,255,255)"
+             style={[styles.checkBoxStyle, this.props.checkBoxStyle]}
+             onPress={this.setChecked}
+             hitSlop={{top: 5, bottom: 5, right: 5, left: 5}}/>
+       :
+       <View style={styles.checkBoxStyle}/>
      }
      </View>
   )}

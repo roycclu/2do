@@ -31,15 +31,22 @@ module.exports = StyleSheet.create({
     height: 42
   },
 
-  iconCheck: {
-    marginRight: (width - shrink)/20,
-    marginLeft: (width - shrink)/20
+  itemLeft: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   checkbox: {
     width: 18,
     height: 18,
     marginLeft: (width - shrink)/20
+  },
+
+  itemRight: {
+    flex: 6,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 
   text: {

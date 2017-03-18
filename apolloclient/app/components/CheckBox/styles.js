@@ -9,5 +9,9 @@ const shrink = 60;
 
 module.exports = StyleSheet.create({
 
+  checkBoxStyle: {
+    marginRight: 5,
+    marginLeft: 5
+  },
 
 });
